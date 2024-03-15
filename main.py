@@ -193,12 +193,10 @@ if number_of_symbols > 1:
         tab1, tab2, tab3 = st.tabs(["Plots", "Annual Returns", "Montly Returns"])
 
         with tab1:
-
             plots.plot_annual_returns(annual_portfolio_returns)
             plots.plot_cummulative_returns(cumulative_returns)
 
         with tab2:
-
             annual_portfolio_returns = summary_tables.annual_returns_dataframe(
                 annual_portfolio_returns
             )
@@ -224,7 +222,6 @@ if number_of_symbols > 1:
             st.dataframe(merged_annual_returns_data, use_container_width=True)
 
         with tab3:
-
             monthly_portfolio_return = summary_tables.monthly_returns_dataframe(
                 portfolio_returns
             )
@@ -250,4 +247,4 @@ if number_of_symbols > 1:
             )
 
             st.write("Montly Return")
-            st.dataframe(merged_monthly_returns_data)
+            st.dataframe(merged_monthly_returns_data, use_container_width=True)
