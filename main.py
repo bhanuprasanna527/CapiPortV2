@@ -11,6 +11,7 @@ from utilities.py import summary_tables
 from pypfopt import EfficientFrontier
 from pypfopt import risk_models
 from pypfopt import expected_returns
+from pypfopt import HRPOpt, hierarchical_portfolio
 
 import plotly.express as px
 import plotly.graph_objects as go
@@ -35,15 +36,25 @@ streamlit_company_list_input = st.multiselect(
     "Select Multiple Companies", company_name, default=None
 )
 
-optimization_methods = st.selectbox(
-    "Select an Optimsation Technique",
+optimisation_method = st.selectbox(
+    "Choose an optimization method accordingly",
     (
-        "Maximum Sharpe Ratio",
-        "Efficient Risk",
-        "Minimum Volatility",
-        "Efficient Return",
+        "Efficient Frontier",
+        "Hierarchical Risk Parity",
     ),
 )
+
+parameter_for_optimisation = 0
+if optimisation_method == "Efficient Frontier":
+    parameter_for_optimisation = st.selectbox(
+        "Choose an optimization parameter accordingly",
+        (
+            "Maximum Sharpe Ratio",
+            "Efficient Risk",
+            "Minimum Volatility",
+            "Efficient Return",
+        ),
+    )
 
 company_name_to_symbol = [name_to_symbol_dict[i] for i in streamlit_company_list_input]
 
@@ -90,23 +101,39 @@ if number_of_symbols > 1:
     if number_of_symbols > 1:
         company_stock_returns_data = company_data.pct_change().dropna()
 
-        mu = expected_returns.mean_historical_return(company_data)
-        S = risk_models.sample_cov(company_data)
+        mu = 0
+        S = 0
+        ef = 0
+        company_asset_weights = 0
 
-        ef = EfficientFrontier(mu, S)
+        if optimisation_method == "Efficient Frontier":
+            mu = expected_returns.mean_historical_return(company_data)
+            S = risk_models.sample_cov(company_data)
 
-        if optimization_methods == "Maximum Sharpe Raio":
-            ef.max_sharpe()
-        elif optimization_methods == "Minimum Volatility":
-            ef.min_volatility()
-        elif optimization_methods == "Efficient Risk":
-            ef.efficient_risk(0.5)
-        else:
-            ef.efficient_return(0.05)
+            ef = EfficientFrontier(mu, S)
 
-        company_asset_weights = pd.DataFrame.from_dict(
-            ef.clean_weights(), orient="index"
-        ).reset_index()
+            if parameter_for_optimisation == "Maximum Sharpe Raio":
+                ef.max_sharpe()
+            elif parameter_for_optimisation == "Minimum Volatility":
+                ef.min_volatility()
+            elif parameter_for_optimisation == "Efficient Risk":
+                ef.efficient_risk(0.5)
+            else:
+                ef.efficient_return(0.05)
+
+            company_asset_weights = pd.DataFrame.from_dict(
+                ef.clean_weights(), orient="index"
+            ).reset_index()
+        elif optimisation_method == "Hierarchical Risk Parity":
+            mu = expected_returns.returns_from_prices(company_data)
+            S = risk_models.sample_cov(company_data)
+
+            ef = HRPOpt(mu, S)
+
+            company_asset_weights = ef.optimize()
+            company_asset_weights = pd.DataFrame.from_dict(
+                company_asset_weights, orient="index", columns=["Weight"]
+            ).reset_index()
 
         company_asset_weights.columns = ["Ticker", "Allocation"]
 
@@ -139,7 +166,15 @@ if number_of_symbols > 1:
 
         st_portfolio_performance.columns = ["Metrics", "Summary"]
 
-        st.write("Optimization Method - ", optimization_methods)
+        if optimisation_method == "Efficient Frontier":
+            st.write(
+                "Optimization Method - ",
+                optimisation_method,
+                "---- Parameter - ",
+                parameter_for_optimisation,
+            )
+        else:
+            st.write("Optimization Method - ", optimisation_method)
 
         st.dataframe(st_portfolio_performance, use_container_width=True)
 
@@ -155,12 +190,64 @@ if number_of_symbols > 1:
 
         cumulative_returns = (portfolio_returns + 1).cumprod() * initial_investment
 
-        tab1, tab2 = st.tabs(["Plots", "Tables"])
+        tab1, tab2, tab3 = st.tabs(["Plots", "Annual Returns", "Montly Returns"])
 
         with tab1:
+
             plots.plot_annual_returns(annual_portfolio_returns)
             plots.plot_cummulative_returns(cumulative_returns)
 
         with tab2:
-            summary_tables.annual_returns_dataframe(annual_portfolio_returns)
-            summary_tables.cumulative_returns_dataframe(cumulative_returns)
+
+            annual_portfolio_returns = summary_tables.annual_returns_dataframe(
+                annual_portfolio_returns
+            )
+            annual_cumulative_returns = (
+                summary_tables.annual_cumulative_returns_dataframe(cumulative_returns)
+            )
+            annual_stock_returns = summary_tables.company_wise_annual_return(
+                company_stock_returns_data, company_asset_weights
+            )
+
+            merged_annual_returns_data = pd.merge(
+                annual_portfolio_returns,
+                annual_cumulative_returns,
+                on="Year",
+                suffixes=("_portfolio", "_cumulative"),
+            )
+
+            merged_annual_returns_data = pd.merge(
+                merged_annual_returns_data, annual_stock_returns, on="Year"
+            )
+
+            st.write("Annual Returns")
+            st.dataframe(merged_annual_returns_data, use_container_width=True)
+
+        with tab3:
+
+            monthly_portfolio_return = summary_tables.monthly_returns_dataframe(
+                portfolio_returns
+            )
+            monthly_stock_return = summary_tables.company_wise_monthly_return(
+                company_stock_returns_data, company_asset_weights
+            )
+            monthly_cumulative_returns = (
+                summary_tables.monthly_cumulative_returns_dataframe(cumulative_returns)
+            )
+
+            merged_monthly_returns_data = pd.merge(
+                monthly_portfolio_return,
+                monthly_cumulative_returns,
+                on=["Year", "Month"],
+                how="inner",
+            )
+
+            merged_monthly_returns_data = pd.merge(
+                merged_monthly_returns_data,
+                monthly_stock_return,
+                on=["Year", "Month"],
+                how="inner",
+            )
+
+            st.write("Montly Return")
+            st.dataframe(merged_monthly_returns_data)
