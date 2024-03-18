@@ -85,10 +85,12 @@ if number_of_symbols > 1:
             left_index=True,
         )
 
-    for i in company_data.columns:
-        company_data.dropna(axis=1, how="all", inplace=True)
+    company_data.dropna(axis=1, how="all", inplace=True)
 
     company_data.dropna(inplace=True)
+
+    for i in company_data.columns:
+        company_data[i] = company_data[i].abs()
 
     st.write(
         f"Note: Due to unavailability of full data, this Analysis uses data from the date: {company_data.index[0]}"
