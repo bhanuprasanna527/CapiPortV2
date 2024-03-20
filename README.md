@@ -38,8 +38,16 @@ Follow these steps to get started with the project:
    ```bash
     python main.py
 
-## Technique used (Version 1) 
-###  Mean-Variance Portfolio Optimization
+## Technique used (Version 2) 
+
+1) Efficient Frontier
+   - Parameters used:
+        1.1) Maximum Sharpe Ratio
+        1.2) Efficient Risk
+        1.3) Efficient Return
+        1.4) Minimum Volatility
+     
+2) Hierarchical Risk Parity
 Overview
 
 Mean-Variance Portfolio Optimization is a widely used method in finance for constructing an investment portfolio that maximizes expected return for a given level of risk, or equivalently minimizes risk for a given level of expected return. This approach was pioneered by Harry Markowitz and forms the foundation of Modern Portfolio Theory (MPT).
