@@ -10,9 +10,6 @@ license: mit
 
 # <center>CapiPort V2</center>
 
-# Portfolio Management for Indian Equity Markets
-[![Build Status](https://github.com/bhanuprasanna527/CapiPortV2/actions/workflows/HF_sync_space.yml/badge.sv)](https://github.com/bhanuprasanna527/CapiPortV2/actions)
-
 
 ## Overview
 
