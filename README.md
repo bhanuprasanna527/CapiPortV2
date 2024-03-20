@@ -54,18 +54,16 @@ Follow these steps to get started with the project:
 
 1. Implementation
 
-   In our project, we have implemented the Mean-Variance Portfolio Optimization method with 5000 iterations. The process involves:
-
-   Input: Historical return data for each equity in the Indian market.
+   Input: NSE Stock Tickers, Date you want to track from, Optimization Technique, Parameter to base on, and the amount you want to invest.
 
    Objective: Maximize expected return while minimizing portfolio variance.
 
-   Optimization: Utilize an iterative approach, adjusting weights to find the optimal allocation.
+   Optimization: Utilize an Optimization method to find the Optimal Allocation to maximize Returns and minimize Volatility. approach, adjusting weights to find the optimal allocation.
 
-   Output: The final set of weights that represent the optimal portfolio allocation.
+   Output: The final set of weights representing the optimal portfolio allocation, Annual Returns, Cumulative Annual Returns, Cumulative Monthly Returns, and Monthly returns. You will also be able to see Visual charts for the analysis.
 
 #### Contributing
-We welcome contributions! If you have any ideas for improvements, open an issue or submit a pull request.
+We welcome contributions! If you have any improvement ideas, please feel free to open an issue or submit a pull request.
 License
 
 This project is licensed under the MIT License.
