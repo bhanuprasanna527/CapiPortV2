@@ -41,38 +41,18 @@ Follow these steps to get started with the project:
 ## Technique used (Version 2) 
 
 1) Efficient Frontier
-   - Parameters used:\
-  
+   - Parameters used:
      
         1.1) Maximum Sharpe Ratio\
         1.2) Efficient Risk\
         1.3) Efficient Return\
-        1.4) Minimum Volatility\
+        1.4) Minimum Volatility
      
 2) Hierarchical Risk Parity
-Overview
 
-Mean-Variance Portfolio Optimization is a widely used method in finance for constructing an investment portfolio that maximizes expected return for a given level of risk, or equivalently minimizes risk for a given level of expected return. This approach was pioneered by Harry Markowitz and forms the foundation of Modern Portfolio Theory (MPT).
-Methodology
-1. Basic Concepts
+# Overview
 
-   Expected Return: The anticipated gain or loss from an investment, based on historical data or other factors.
-
-   Risk (Variance): A measure of the dispersion of returns. In portfolio optimization, we seek to minimize the variance of the portfolio returns.
-
-3. Optimization Algorithm
-   
-   Our implementation utilizes the following steps:
-
-   Input Data: Historical returns for each asset in the portfolio.
-
-   Objective Function: Construct an objective function that combines the expected return and variance.
-
-   Optimization Algorithm: We employ a mean-variance optimization algorithm that iteratively adjusts the weights to find the optimal combination.
-
-   Convergence Criteria: The algorithm iterates over a specified number of iterations (e.g., 5000) or until convergence is achieved.
-
-4. Implementation
+1. Implementation
 
    In our project, we have implemented the Mean-Variance Portfolio Optimization method with 5000 iterations. The process involves:
 
