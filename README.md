@@ -1,4 +1,4 @@
-d---
+---
 title: CapiPort
 emoji: 📈
 sdk: streamlit
