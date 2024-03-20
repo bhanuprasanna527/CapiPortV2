@@ -43,7 +43,7 @@ Follow these steps to get started with the project:
 1) Efficient Frontier
    - Parameters used:
   
-   - 
+     
         1.1) Maximum Sharpe Ratio
         1.2) Efficient Risk
         1.3) Efficient Return
