@@ -71,3 +71,5 @@ This project is licensed under the MIT License.
 ## Links
 1. **[Streamlit Deployment](https://capiport2.streamlit.app/)**
 2. **[HuggingFace Spaces](https://huggingface.co/spaces/bhanuprasanna527/CapiPort)**
+3. **[Version1 github](https://github.com/bhanuprasanna527/CapiPort)**
+4. **[Version1 Spaces](https://huggingface.co/spaces/sankhyikii/CapiPort)**
