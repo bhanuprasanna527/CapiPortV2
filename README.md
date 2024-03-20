@@ -41,13 +41,13 @@ Follow these steps to get started with the project:
 ## Technique used (Version 2) 
 
 1) Efficient Frontier
-   - Parameters used:
+   - Parameters used:\
   
      
-        1.1) Maximum Sharpe Ratio
-        1.2) Efficient Risk
-        1.3) Efficient Return
-        1.4) Minimum Volatility
+        1.1) Maximum Sharpe Ratio\
+        1.2) Efficient Risk\
+        1.3) Efficient Return\
+        1.4) Minimum Volatility\
      
 2) Hierarchical Risk Parity
 Overview
