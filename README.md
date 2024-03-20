@@ -10,6 +10,7 @@ license: mit
 
 # <center>CapiPort V2</center>
 [![Build Status](https://github.com/bhanuprasanna527/CapiPortV2/actions/workflows/HF_sync_space.yml/badge.svg)](https://github.com/bhanuprasanna527/CapiPortV2/actions)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://github.com/bhanuprasanna527/CapiPortV2/blob/main/LICENSE)
 
 ## Overview
 
