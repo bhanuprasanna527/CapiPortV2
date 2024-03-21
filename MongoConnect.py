@@ -18,7 +18,7 @@ def client_conn(USER,PASS):
         print(e)
     return client 
     
-def MongoCon(company_name_to_symbol, number_of_symbols)->None:
+def MongoCon(client,company_name_to_symbol, number_of_symbols)->None:
     # create a new database named- "capiport"
     # if db exists, do not make, else make
     if "capiport" in client.list_database_names():
