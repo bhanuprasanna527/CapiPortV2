@@ -70,8 +70,6 @@ start_date = st.date_input(
 
 initial_investment = st.number_input("How much would you want to invest?", value=45000)
 
-mongodb.mongodb_push_data(company_name_to_symbol, number_of_symbols)
-
 if number_of_symbols > 1:
     company_data = pd.DataFrame()
 
@@ -253,3 +251,5 @@ if number_of_symbols > 1:
 
             st.write("Montly Return")
             st.dataframe(merged_monthly_returns_data, use_container_width=True)
+        
+        mongodb.mongodb_push_data(company_name_to_symbol, number_of_symbols)

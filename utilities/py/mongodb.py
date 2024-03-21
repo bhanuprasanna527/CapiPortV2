@@ -2,14 +2,15 @@ from pymongo import MongoClient
 import socket
 from dotenv import load_dotenv
 import os
-import urllib 
+import urllib
+import streamlit as st
 load_dotenv()
 
 def mongodb_push_data(company_name_to_symbol, number_of_symbols):
 
     MONGO_DB_URI = os.environ['MONGO_DB_URI']
-    username = urllib.parse.quote_plus(os.environ.get('USERNAME'))
-    password = urllib.parse.quote_plus(os.environ.get('PASSWORD'))
+    username = urllib.parse.quote_plus(st.secrets["mongo"]["username"])
+    password = urllib.parse.quote_plus(st.secrets["mongo"]["password"])
 
     MONGO_DB_URI = "mongodb+srv://%s:%s@capiport.xtnx5it.mongodb.net/" % (username, password)
 
