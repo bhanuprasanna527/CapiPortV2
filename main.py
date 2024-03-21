@@ -19,7 +19,7 @@ import argparse
 from MongoConnect import MongoCon,client_conn
 streamlit_style()
 
-
+print('parsing')
 parser = argparse.ArgumentParser(description="SECRETS")
 # Add arguments
 parser.add_argument('USERNAME', type=str)
@@ -29,11 +29,11 @@ args = parser.parse_args()
 # Access parsed arguments
 arg1_value = args.USERNAME
 arg2_value = args.PASS
-
+print('parsed')
 client = client_conn(arg1_value,arg2_value)
+print("connected")
 
 company_list_df = pd.read_csv("utilities/data/Company List.csv")
-
 company_name = company_list_df["Name"].to_list()
 company_symbol = (company_list_df["Ticker"] + ".NS").to_list()
 
