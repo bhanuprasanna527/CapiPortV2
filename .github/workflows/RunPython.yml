@@ -22,4 +22,4 @@ jobs:
       - name: Run Python Script
         run: |
           pip install -r requirements.txt
-          python3 main.py $USERNAME $PASSWORD
+          streamlit run main.py ${{secrets.USERNAME}} ${{secrets.PASSWORD}}
