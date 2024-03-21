@@ -7,11 +7,12 @@ import streamlit as st
 from utilities.py.styling import streamlit_style
 from utilities.py import plots
 from utilities.py import summary_tables
+from utilities.py import mongodb
 
 from pypfopt import EfficientFrontier
 from pypfopt import risk_models
 from pypfopt import expected_returns
-from pypfopt import HRPOpt, hierarchical_portfolio
+from pypfopt import HRPOpt
 
 import plotly.express as px
 import plotly.graph_objects as go
@@ -68,6 +69,8 @@ start_date = st.date_input(
 )
 
 initial_investment = st.number_input("How much would you want to invest?", value=45000)
+
+mongodb.mongodb_push_data(company_name_to_symbol, number_of_symbols)
 
 if number_of_symbols > 1:
     company_data = pd.DataFrame()
