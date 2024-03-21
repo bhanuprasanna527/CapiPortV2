@@ -15,22 +15,22 @@ from pypfopt import HRPOpt, hierarchical_portfolio
 
 import plotly.express as px
 import plotly.graph_objects as go
-import argparse
+import sys
 from MongoConnect import MongoCon,client_conn
 streamlit_style()
 
 print('parsing')
-parser = argparse.ArgumentParser(description="SECRETS")
-# Add arguments
-parser.add_argument('USERNAME', type=str)
-parser.add_argument('PASS', type=int)
-# Parse arguments
-args = parser.parse_args()
-# Access parsed arguments
-arg1_value = args.USERNAME
-arg2_value = args.PASS
+
+# Extract USERNAME and PASSWORD from command-line arguments
+username = sys.argv[1]
+password = sys.argv[2]
+
+# Now you can use username and password in your script
+print("Username:", username)
+print("Password:", password)
 print('parsed')
-client = client_conn(arg1_value,arg2_value)
+
+client = client_conn(username,password)
 print("connected")
 
 company_list_df = pd.read_csv("utilities/data/Company List.csv")
