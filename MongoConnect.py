@@ -6,7 +6,7 @@ import os
 from dotenv import load_dotenv
 load_dotenv()
 
-USER = os.environ['USER']
+USER = os.environ['USERNAME']
 PASS = os.environ['PASSWORD']
 
 # Create a new client and connect to the server
