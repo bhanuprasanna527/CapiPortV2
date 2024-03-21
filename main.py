@@ -15,9 +15,22 @@ from pypfopt import HRPOpt, hierarchical_portfolio
 
 import plotly.express as px
 import plotly.graph_objects as go
-
-from MongoConnect import MongoCon
+import argparse
+from MongoConnect import MongoCon,client_conn
 streamlit_style()
+
+
+parser = argparse.ArgumentParser(description="SECRETS")
+# Add arguments
+parser.add_argument('USERNAME', type=str)
+parser.add_argument('PASS', type=int)
+# Parse arguments
+args = parser.parse_args()
+# Access parsed arguments
+arg1_value = args.USERNAME
+arg2_value = args.PASS
+
+client = client_conn(arg1_value,arg2_value)
 
 company_list_df = pd.read_csv("utilities/data/Company List.csv")
 
@@ -60,7 +73,7 @@ if optimisation_method == "Efficient Frontier":
 company_name_to_symbol = [name_to_symbol_dict[i] for i in streamlit_company_list_input]
 
 number_of_symbols = len(company_name_to_symbol)
-MongoCon(company_name_to_symbol, number_of_symbols)
+MongoCon(client, company_name_to_symbol, number_of_symbols)
 
 start_date = st.date_input(
     "Start Date",
