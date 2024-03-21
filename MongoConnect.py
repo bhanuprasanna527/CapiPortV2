@@ -10,7 +10,12 @@ USER = os.environ['USERNAME']
 PASS = os.environ['PASSWORD']
 
 # Create a new client and connect to the server
-client = MongoClient(f"mongodb+srv://{USER}:{PASS}@sankhyikii-capiport.detrwoc.mongodb.net/")
+client = MongoClient("mongodb+srv://%s:%s@sankhyikii-capiport.detrwoc.mongodb.net/"%(USER,PASS)
+
+# username = urllib.parse.quote_plus(os.environ["username"])
+# password = urllib.parse.quote_plus(os.environ["password"])
+
+# MONGO_DB_URI = "mongodb+srv://%s:%s@capiport.xtnx5it.mongodb.net/" % (username, password)
 
 
 # Send a ping to confirm a successful connection
