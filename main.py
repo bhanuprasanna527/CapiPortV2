@@ -16,6 +16,7 @@ from pypfopt import HRPOpt, hierarchical_portfolio
 import plotly.express as px
 import plotly.graph_objects as go
 
+from MongoConnect import MongoCon
 streamlit_style()
 
 company_list_df = pd.read_csv("utilities/data/Company List.csv")
@@ -59,6 +60,7 @@ if optimisation_method == "Efficient Frontier":
 company_name_to_symbol = [name_to_symbol_dict[i] for i in streamlit_company_list_input]
 
 number_of_symbols = len(company_name_to_symbol)
+MongoCon(company_name_to_symbol, number_of_symbols)
 
 start_date = st.date_input(
     "Start Date",
