@@ -1,0 +1,19 @@
+name: Run Python Script
+
+on:
+    workflow_dispatch:
+
+env:
+    username: ${{ secrets.KBP_USERNAME }}
+    password: ${{ secrets.KBP_PASSWORD }}
+
+jobs:
+    run-python:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout Code
+              uses: actions/checkout@v3
+
+            - name: Run Python Script
+              run: |
+                streamlit run main.py
