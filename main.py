@@ -7,6 +7,7 @@ import streamlit as st
 from utilities.py.styling import streamlit_style
 from utilities.py import plots
 from utilities.py import summary_tables
+from utilities.py import mongodb
 
 from pypfopt import EfficientFrontier
 from pypfopt import risk_models
@@ -250,3 +251,5 @@ if number_of_symbols > 1:
 
             st.write("Montly Return")
             st.dataframe(merged_monthly_returns_data, use_container_width=True)
+
+        mongodb.mongodb_push_data(company_name_to_symbol, number_of_symbols)
