@@ -17,4 +17,6 @@ jobs:
       - name: Push to hub
         env:
           HF_TOKEN: ${{ secrets.HF_TOKEN }}
+          USERNAME: ${{ secrets.KBP_USERNAME }}
+          PASSWORD: ${{ secrets.KBP_PASSWORD }}
         run: git push --force https://bhanuprasanna527:$HF_TOKEN@huggingface.co/spaces/bhanuprasanna527/CapiPort main
