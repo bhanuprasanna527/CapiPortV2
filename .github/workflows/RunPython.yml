@@ -1,6 +1,7 @@
 name: run python script
 on:
-  workflow_dispatch
+  push:
+    branches: [shyam]
 
 env:
   USERNAME: ${{secrets.USERNAME}}
