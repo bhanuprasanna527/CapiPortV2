@@ -3,6 +3,10 @@ on:
   push:
     branches: [main]
 
+env:
+  username: ${{ secrets.KBP_USERNAME }}
+  password: ${{ secrets.KBP_PASSWORD }}
+
   # to run this workflow manually from the Actions tab
   workflow_dispatch:
 
