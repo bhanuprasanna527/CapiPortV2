@@ -7,16 +7,11 @@ import os
 from dotenv import load_dotenv
 load_dotenv()
 
-# USER = os.environ['USERNAME']
-# PASS = os.environ['PASSWORD']
-
+USER = os.environ['USERNAME']
+PASS = os.environ['PASSWORD']
 # Create a new client and connect to the server
+client = MongoClient("mongodb+srv://%s:%s@sankhyikii-capiport.detrwoc.mongodb.net/"%(USER,PASS))
 
-username = urllib.parse.quote_plus(os.environ["USERNAME"])
-password = urllib.parse.quote_plus(os.environ["PASSWORD"])
-client = MongoClient("mongodb+srv://%s:%s@sankhyikii-capiport.detrwoc.mongodb.net/"%(username,password))
-
-# MONGO_DB_URI = "mongodb+srv://%s:%s@capiport.xtnx5it.mongodb.net/" % (username, password)
 # Send a ping to confirm a successful connection
 try:
     client.admin.command('ping')
