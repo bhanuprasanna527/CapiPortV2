@@ -8,9 +8,8 @@ load_dotenv()
 
 def mongodb_push_data(company_name_to_symbol, number_of_symbols):
 
-    MONGO_DB_URI = os.environ['MONGO_DB_URI']
-    username = urllib.parse.quote_plus(st.secrets["mongo"]["username"])
-    password = urllib.parse.quote_plus(st.secrets["mongo"]["password"])
+    username = urllib.parse.quote_plus(os.environ["username"])
+    password = urllib.parse.quote_plus(os.environ["password"])
 
     MONGO_DB_URI = "mongodb+srv://%s:%s@capiport.xtnx5it.mongodb.net/" % (username, password)
 
