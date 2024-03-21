@@ -6,8 +6,8 @@ import os
 from dotenv import load_dotenv
 load_dotenv()
 
-USER = os.environ.get(['USER'])
-PASS = os.environ.get(['PASSWORD'])
+USER = os.environ['USER']
+PASS = os.environ['PASSWORD']
 
 # Create a new client and connect to the server
 client = MongoClient(f"mongodb+srv://{USER}:{PASS}@sankhyikii-capiport.detrwoc.mongodb.net/")
