@@ -7,7 +7,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 
-MONGODB_URI = os.environ['MONGO_SECRET']
+MONGODB_URI = os.environ['MONGODB_URI']
 
 # Create a new client and connect to the server
 client = MongoClient(MONGODB_URI)
