@@ -6,11 +6,11 @@ import os
 from dotenv import load_dotenv
 load_dotenv()
 
-
-MONGODB_URI = os.environ['MONGODB_URI']
+USER = os.environ.get(['USER'])
+PASS = os.environ.get(['PASSWORD'])
 
 # Create a new client and connect to the server
-client = MongoClient(MONGODB_URI)
+client = MongoClient(f"mongodb+srv://{USER}:{PASS}@sankhyikii-capiport.detrwoc.mongodb.net/")
 
 
 # Send a ping to confirm a successful connection
