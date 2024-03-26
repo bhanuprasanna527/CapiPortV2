@@ -6,7 +6,7 @@ from utilities.py.ui_elements import UserInput
 from utilities.py import plots, summary_tables
 
 
-class Composer:
+class CapiPortApp:
     def __init__(self, company_df):
         """
         Class for composing the apps UI on a high level. Is meant to provide a readable overview, of what happens inside the app, without being concerned with unnecessary details.
