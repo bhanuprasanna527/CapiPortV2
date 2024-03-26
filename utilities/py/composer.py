@@ -23,6 +23,7 @@ class Composer:
         self.user_input.opt_method_selection()
         self.user_input.start_date()
         self.user_input.initial_investment()
+      
 
     def render_results(self):
         """
@@ -52,9 +53,13 @@ class Composer:
 
         # print disclaimer
         first_date_available = portfolio_opt.stock_data.index[0]
+        opt_header = f"Used {user_input_data.opt_method}" if user_input_data.ef_parameter is None else f"Used {user_input_data.opt_method} with {user_input_data.ef_parameter}"
+
 
         st.write(
             f"Note: Due to unavailability of full data, this Analysis uses data from the date: {first_date_available}")
+
+        st.write(opt_header)
 
         # show asset weights, portfolio performance and the pie chart
         st.dataframe(company_asset_weights, use_container_width=True)
