@@ -18,9 +18,11 @@ import plotly.express as px
 import plotly.graph_objects as go
 
 streamlit_style()
-
+# data import
 company_list_df = pd.read_csv("utilities/data/Company List.csv")
 
+
+# company selction -------------------------------------------------------------------
 company_name = company_list_df["Name"].to_list()
 company_symbol = (company_list_df["Ticker"] + ".NS").to_list()
 
@@ -36,6 +38,8 @@ for CSymbol, CName in zip(company_symbol, company_name):
 streamlit_company_list_input = st.multiselect(
     "Select Multiple Companies", company_name, default=None
 )
+
+# method selection ---------------------------------------------------------------------
 
 optimisation_method = st.selectbox(
     "Choose an optimization method accordingly",
@@ -57,6 +61,8 @@ if optimisation_method == "Efficient Frontier":
         ),
     )
 
+# selection of starting date and amount to invest --------------------------------------
+
 company_name_to_symbol = [name_to_symbol_dict[i] for i in streamlit_company_list_input]
 
 number_of_symbols = len(company_name_to_symbol)
@@ -70,9 +76,11 @@ start_date = st.date_input(
 
 initial_investment = st.number_input("How much would you want to invest?", value=45000)
 
+# Optimization and summary of results
 if number_of_symbols > 1:
     company_data = pd.DataFrame()
 
+    # get the stock data for the companies
     for cname in company_name_to_symbol:
         stock_data_temp = yf.download(
             cname, start=start_date, end=pd.Timestamp.now().strftime("%Y-%m-%d")
@@ -86,6 +94,7 @@ if number_of_symbols > 1:
             left_index=True,
         )
 
+    # cleaning the data
     company_data.dropna(axis=1, how="all", inplace=True)
 
     company_data.dropna(inplace=True)
@@ -99,16 +108,20 @@ if number_of_symbols > 1:
 
     number_of_symbols = len(company_data.columns)
 
+    # showing the stock data in the UI
     st.dataframe(company_data, use_container_width=True)
 
+    # only continue with sim, if more than one company was fetched
     if number_of_symbols > 1:
         company_stock_returns_data = company_data.pct_change().dropna()
 
+        # Config for the simulation
         mu = 0
         S = 0
         ef = 0
         company_asset_weights = 0
 
+        # Do the portfolio optimization
         if optimisation_method == "Efficient Frontier":
             mu = expected_returns.mean_historical_return(company_data)
             S = risk_models.sample_cov(company_data)
@@ -138,9 +151,8 @@ if number_of_symbols > 1:
                 company_asset_weights, orient="index", columns=["Weight"]
             ).reset_index()
 
+        # cleaning the returned data from the optimization and outputing results
         company_asset_weights.columns = ["Ticker", "Allocation"]
-
-        company_asset_weights_copy = company_asset_weights
 
         company_asset_weights["Name"] = [
             symbol_to_name_dict[i] for i in company_asset_weights["Ticker"]
@@ -150,8 +162,8 @@ if number_of_symbols > 1:
 
         st.dataframe(company_asset_weights, use_container_width=True)
 
-        ef.portfolio_performance()
 
+        # get portfolio performance and refactor the data
         (
             expected_annual_return,
             annual_volatility,
@@ -169,6 +181,7 @@ if number_of_symbols > 1:
 
         st_portfolio_performance.columns = ["Metrics", "Summary"]
 
+        # output the method used above the results
         if optimisation_method == "Efficient Frontier":
             st.write(
                 "Optimization Method - ",
@@ -181,8 +194,10 @@ if number_of_symbols > 1:
 
         st.dataframe(st_portfolio_performance, use_container_width=True)
 
+        # plot the pie chart with the asset weights
         plots.pie_chart_company_asset_weights(company_asset_weights)
 
+        # summarizing the asset returns with optimized portfolio
         portfolio_returns = (
             company_stock_returns_data * list(ef.clean_weights().values())
         ).sum(axis=1)
@@ -192,6 +207,8 @@ if number_of_symbols > 1:
         )
 
         cumulative_returns = (portfolio_returns + 1).cumprod() * initial_investment
+
+        # Output the results in the tab
 
         tab1, tab2, tab3 = st.tabs(["Plots", "Annual Returns", "Montly Returns"])
 
