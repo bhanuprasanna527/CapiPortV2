@@ -6,3 +6,9 @@
 *.idea
 *app.py
 *.env
+
+# VSCode settings
+.vscode
+
+# Pycache
+*/__pycache__
