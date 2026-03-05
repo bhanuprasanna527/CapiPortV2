@@ -6,6 +6,7 @@ sdk_version: 1.32.0
 app_file: main.py
 pinned: false
 license: mit
+python_version: 3.10
 ---
 
 # <center>CapiPort V2</center>
