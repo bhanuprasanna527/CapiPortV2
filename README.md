@@ -270,7 +270,7 @@ This project is licensed under the **MIT License** — see the [LICENSE](LICENSE
 
 <div align="center">
 
-*Built with ❤️ and rigorous quantitative finance by [bhanuprasanna527](https://github.com/bhanuprasanna527)*
+*Built with ❤️ and rigorous quantitative finance
 
 ⭐ **Star this repo if you find it useful!** ⭐
 
