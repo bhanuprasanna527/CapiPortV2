@@ -1,4 +1,5 @@
 import pandas as pd
+import streamlit as st
 
 from utilities.py.styling import streamlit_style
 from utilities.py.composer import CapiPortApp
@@ -15,4 +16,7 @@ capi_port.render_user_input()
 ready_to_render_results = len(capi_port.user_input.get_selected_comp_ids()) > 1
 
 if ready_to_render_results:
-    capi_port.render_results()
+    try:
+        capi_port.render_results()
+    except ValueError as e:
+        st.error(str(e))

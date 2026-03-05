@@ -37,9 +37,21 @@ class CompData:
 
         # get the stock data for the companies
         for cname in company_ids:
-            stock_data_temp = yf.download(
-                cname, start=start_date, end=pd.Timestamp.now().strftime("%Y-%m-%d")
-            )["Adj Close"]
+            raw = yf.download(
+                cname,
+                start=start_date,
+                end=pd.Timestamp.now().strftime("%Y-%m-%d"),
+                auto_adjust=True,
+                progress=False,
+            )
+            # Support both flat ("Close") and MultiIndex (("Close", ticker)) column layouts
+            # produced by different yfinance versions.
+            if isinstance(raw.columns, pd.MultiIndex):
+                close = raw["Close"]
+                stock_data_temp = close[cname] if isinstance(close, pd.DataFrame) else close
+            else:
+                close = raw["Close"]
+                stock_data_temp = close if isinstance(close, pd.Series) else close.squeeze()
             stock_data_temp.name = cname
             company_data = pd.merge(
                 company_data,
@@ -72,6 +84,12 @@ class PortfolioOptimizer:
         self.comp_data = comp_data
         self.stock_data = self.comp_data.fetch_stock_data(
             company_ids, start_date)
+        if self.stock_data.empty:
+            raise ValueError(
+                "No price data could be retrieved for the selected companies and "
+                "date range. Please choose a more recent start date or different "
+                "companies."
+            )
         self.stock_data_returns = self.stock_data.pct_change().dropna()
 
     def optimize(self, method: str, ef_parameter=None):
