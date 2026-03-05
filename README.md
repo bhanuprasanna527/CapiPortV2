@@ -20,7 +20,7 @@ python_version: "3.10"
 [![Streamlit](https://img.shields.io/badge/Streamlit-1.31%2B-FF4B4B?logo=streamlit&logoColor=white)](https://streamlit.io/)
 [![HuggingFace](https://img.shields.io/badge/🤗%20HuggingFace-Spaces-yellow)](https://huggingface.co/spaces/bhanuprasanna527/CapiPort)
 
-**[🚀 Live Demo — Streamlit Cloud](https://capiport2.streamlit.app/) &nbsp;|&nbsp; [🤗 HuggingFace Spaces](https://huggingface.co/spaces/bhanuprasanna527/CapiPort)**
+**[🚀 Live Demo — 🤗 HuggingFace Spaces](https://huggingface.co/spaces/bhanuprasanna527/CapiPort)**
 
 </div>
 
